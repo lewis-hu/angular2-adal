@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/bindCallback'
+import 'rxjs/add/operator/mergeMap';
 import * as adalLib from 'adal-angular';
 import { OAuthData } from "./oauthdata.model";
 import User = adal.User;
@@ -12,7 +14,8 @@ export class AdalService {
         isAuthenticated: false,
         userName: '',
         loginError: '',
-        profile: {}
+        profile: {},
+        token: ''
     };
 
     public init(configOptions: adal.Config) {
@@ -123,7 +126,7 @@ export class AdalService {
         }
     }
 
-    public getUser(): Observable<adal.User> {
+    public getUser(): Observable<any> {
         return Observable.bindCallback((cb: (u: adal.User) => User) => {
             this.adalContext.getUser(function (error: string, user: adal.User) {
                 if (error) {
@@ -168,6 +171,7 @@ export class AdalService {
             this.oauthData.userName = user.userName;
             this.oauthData.profile = user.profile;
             this.oauthData.loginError = this.adalContext.getLoginError();
+            this.oauthData.token = token;
         }
         else {
             this.oauthData.userName = '';

@@ -1,3 +1,8 @@
+This is a fork from ng2-adal npm package.
+Changes:
+- updated rxjs to version 5.4.3
+- added bearer token as part of userInfo.
+
 # ng2-adal
 
 This branch is for Angular2. NPM package is still on Angular 2 and I will be publishing angular 4 package soon.

@@ -3,4 +3,5 @@ export interface OAuthData {
     userName: string;
     loginError: string;
     profile: any;
+    token: string;
 }
